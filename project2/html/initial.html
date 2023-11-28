@@ -20,9 +20,20 @@
   <link rel="stylesheet" href="../resources/css/template.css">
   <link rel="stylesheet" href="../resources/css/common.css">
   <link rel="stylesheet" href="../resources/css/style.css">
+  <link rel="stylesheet" href="swiper/css">
+  <link rel="stylesheet" href="swiper/css/autoplay">
 </head>
 
 <body>
+  <script>
+    import Swiper from "swiper"
+    import {Autoplay} from "swiper/modules"
+    const swiper = new Swiper(".swiper", {
+      direction: 'vertical',
+      loop: true,
+      modules: [Autoplay]
+    })
+  </script>
   <!-- [S]basic-N1 -->
   <header class="basic-N1" data-bid="WiLOy3e50y">
     <div class="header-inner">
@@ -104,17 +115,6 @@
                 <a class="btnset btnset-round" href="ge.html">게시판 이용하기</a>
               </div>
             </div>
-            <!-- <div class="swiper-slide">
-              <img class="contents-backimg img-pc" src="../resources/images/img_mainvisual_01.png" alt="PC 배너 이미지">
-              <img class="contents-backimg img-mobile" src="../resources/images/img_mainvisual_mobile_01.png" alt="모바일 배너 이미지">
-              <div class="contents-slide-group container-md">
-                <div class="textset textset-visual">
-                  <h2 class="textset-tit">전문적인 서비스를 제공하는 <br> 템하 비즈니스 </h2>
-                  <p class="textset-desc"> 사용자는 언제 어디서든 웹사이트를 통해 필요한 정보를 검색할 수 있으며, <br> 일반적으로 정보에 대한 정확성과 신뢰성이 높습니다. </p>
-                </div>
-                <a class="btnset btnset-round" href="javascript:void(0)">자세히보기</a>
-              </div>
-            </div> -->
           </div>
           <div class="contents-control">
             <div class="swiper-button-prev"></div>
