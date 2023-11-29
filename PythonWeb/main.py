@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, request, url_for
+import flask_login # @login_required를 통해 로그인 권한이 필요한 기능을 통제할수있다
 from markupsafe import escape
+import app
 
 HOST = 'localhost'
 PORT = 8080
 DEBUG = False
 
-app = Flask(__name__, template_folder='web')
+app = app.create_app()
 
 @app.route('/')
 def index():
