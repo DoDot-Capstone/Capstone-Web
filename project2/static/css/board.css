@@ -1,0 +1,26 @@
+@charset "utf-8";
+.button-container {
+  margin-top: 2vh;
+  width: 100vw;
+  display: flex;
+  justify-content: end;
+}
+
+.button-area {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.article-btn {
+  height: 35px;
+}
+
+.table-row {
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.table-row:hover {
+  background: #ccc;
+}
