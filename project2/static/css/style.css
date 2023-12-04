@@ -1,5 +1,4 @@
-@charset "utf-8"; 
-
+@charset "utf-8";
 /* basic-N1 [WiLOy3e50y] */
 .basic-N1 { position: relative; top: -100%; left: 0; width: 100%; z-index: 200; transition: 0.3s; background-color: var(--white); }
 .basic-N1.header-top-active { position: fixed; top: 0; }
