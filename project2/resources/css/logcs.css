@@ -25,6 +25,7 @@ body {
   min-height: 480px;
   overflow: hidden;
 }
+
 form {
   background: #ebecf0;
   display: flex;
