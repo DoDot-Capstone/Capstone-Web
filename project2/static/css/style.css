@@ -81,9 +81,9 @@
 .basic-N5 .contents-control { display: flex; align-items: center; gap: 0.8rem; position: absolute; left: 50%; bottom: 8rem; transform: translateX(-50%); z-index: 100; }
 .basic-N5 .contents-deco { display: inline-block; width: 1.2rem; height: 0.2rem; background-color: var(--white); opacity: 0.5; border-radius: 1rem; }
 .basic-N5 .swiper-button-prev,.basic-N5 .swiper-button-next { position: static; width: 2rem; height: 2rem; margin-top: 0; }
-.basic-N5 .swiper-button-prev:after { content: ''; width: 2rem; height: 2rem; background-image: url("../../resources/icons/ico_arrow_withe.svg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.5; transform: rotate(180deg); }
+.basic-N5 .swiper-button-prev:after { content: ''; width: 2rem; height: 2rem; background-image: url("../../static/icons/ico_arrow_withe.svg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.5; transform: rotate(180deg); }
 .basic-N5 .swiper-button-prev:hover::after { opacity: 1; }
-.basic-N5 .swiper-button-next:after { content: ''; width: 2rem; height: 2rem; background-image: url("../../resources/icons/ico_arrow_withe.svg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.5; }
+.basic-N5 .swiper-button-next:after { content: ''; width: 2rem; height: 2rem; background-image: url("../../static/icons/ico_arrow_withe.svg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.5; }
 .basic-N5 .swiper-button-next:hover::after { opacity: 1; }
 .basic-N5 .swiper-pagination { display: flex; align-items: center; position: static; gap: 0.8rem; }
 .basic-N5 .swiper-pagination-current { font-weight: 500; color: var(--text-color5); }
@@ -145,8 +145,8 @@
 .basic-N9 .contents-control { position: absolute; right: 0; bottom: 44rem; display: flex; align-items: center; gap: 2.4rem; }
 .basic-N9 .swiper-button-prev,.basic-N9 .swiper-button-next { flex-shrink: 0; position: static; margin-top: 0; width: 6rem; height: 6rem; border-radius: 50%; background-color: var(--highlight-bg); }
 .basic-N9 .swiper-button-prev::after,.basic-N9 .swiper-button-next::after { content: ''; display: inline-block; width: 2.4rem; height: 2.4rem; background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.7; }
-.basic-N9 .swiper-button-prev:after { background-image: url("../../resources/icons/ico_arrow_black.svg"); transform: rotate(180deg); }
-.basic-N9 .swiper-button-next:after { background-image: url("../../resources/icons/ico_arrow_black.svg"); }
+.basic-N9 .swiper-button-prev:after { background-image: url("../../static/icons/ico_arrow_black.svg"); transform: rotate(180deg); }
+.basic-N9 .swiper-button-next:after { background-image: url("../../static/icons/ico_arrow_black.svg"); }
 .basic-N9 .swiper-button-prev:hover::after,.basic-N9 .swiper-button-next:hover::after { opacity: 1; }
 .basic-N9 .contents-bottom .textset-desc { padding-right: 0; }
 .basic-N9 .cardset.cardset-inner .cardset-figure { height: 38rem; }
