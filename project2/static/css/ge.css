@@ -24,3 +24,15 @@
 .table-row:hover {
     background: #CCC;
 }
+
+
+  .btn-dark {
+    background: #555 !important;
+    color: #fff !important;
+  }
+
+  .btn-dark:hover, .btn-dark:focus {
+    background: #373737 !important;
+    border-color: #373737 !important;
+    color: #fff !important;
+  }
