@@ -8,6 +8,7 @@ body {
 }
 
 .box {
+  z-index:-1;
   position: absolute;
   background: transparent;
   animation-name: animation;
