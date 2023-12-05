@@ -55,7 +55,7 @@
               </form>
             </div>
             <div class="sign-in-container">
-              <form>
+              <form id='login'>
                 <h1>Sign In</h1>
                 <div class="social-links">
                   <div>
@@ -69,9 +69,35 @@
                   </div>
                 </div>
                 <span>or use your account</span>
-                <input type="id" placeholder="id">
-                <input type="password" placeholder="Password">
-                <button class="form_btn">Sign In</button>
+                <input type="id" placeholder="id" id="id">
+                <input type="password" placeholder="Password" id="password">
+                <button class="form_btn" onclick='performLogin(event)'>Sign In</button>
+                <script>
+                  function performLogin(event) {
+                    event.preventDefault();
+                    // 로그인에 사용할 데이터
+                    const loginData = new FormData(document.getElementById('login'));
+
+                    // 서버로 데이터를 전송하는 AJAX 요청
+                    fetch('/loginsession', {
+                        method: 'POST',
+                        body: loginData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 서버 응답에 따라 처리
+                        if (data.login_success) {
+                            alert('로그인이 성공했습니다.');
+                        } else {
+                            alert('로그인이 실패했습니다.');
+                        }
+                    })
+                    .catch(error=>{
+                      console.log('에러:', error);
+                      alert('로그인 중 오류가 발생했습니다.');
+                    });
+                }
+               </script>
                </form>
             </div>
             <div class="overlay-container">

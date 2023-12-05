@@ -14,7 +14,6 @@ body {
   animation-timing-function: ease infinite;
   left: 100vw;
 }
-
 .box:nth-child(1) {
   font-size: 15em;
   color: rgb(34, 34, 34);

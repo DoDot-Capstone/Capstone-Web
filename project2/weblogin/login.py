@@ -1,16 +1,6 @@
-from flask import Flask
 from flask_login import LoginManager
 import user
-import PythonWeb.app
 
-
-app = PythonWeb.app.create_app()  # flask 객체 생성
-
-login_manager = LoginManager()
-login_manager.init_app(app)  # app 에 login_manager 연결
-
-
-@login_manager.user_loader
 def user_loader(user_id):
     # 사용자 정보 조회
     user_info = user.User.get_user_info(user_id)

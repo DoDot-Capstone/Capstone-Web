@@ -2,7 +2,7 @@
 from flask_login import UserMixin
 
 # DB 연결 정보가 저장되어 있는 config
-import PythonWeb.db.mysql
+import project2.database.mysql
 
 
 # UserMixin 상속하여 flask_login에서 제공하는 기본 함수들 사용
@@ -32,7 +32,7 @@ class User(UserMixin):
             else:
                 sql += f"WHERE USER_ID = '{user_id}'; "
 
-            result = PythonWeb.db.mysql.execute_query(sql)
+            result = project2.database.mysql.execute_query(sql)
 
         except :
             result['result'] = 'fail'

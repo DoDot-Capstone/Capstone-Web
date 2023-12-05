@@ -36,7 +36,7 @@ def execute_query(operation):
         for row in results:
             print(row)
 
-    except mysql.connector.Error as err:
+    except connection.Error as err:
         print(f"Error: {err}")
 
     finally:
