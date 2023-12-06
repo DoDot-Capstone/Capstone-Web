@@ -3,8 +3,11 @@ from datetime import datetime
 from database import mysql
 from database.models.article import Article
 from database.models.user import User
+from project2.weblogin.register import get_register
 from weblogin.loginsession import login_get_info
 
+
+print('실행')
 app = Flask(__name__, template_folder='html')
 
 @app.route("/")
@@ -41,9 +44,13 @@ def users():
 def articles():
     return {"articles": Article.load_all_article()}
 
-@app.route("/loginsession")
-def login_get_info():
-    login_get_info()
+@app.route("/loginsession",methods=['POST', 'GET'])
+def login_info():
+    return login_get_info()
+
+@app.route("/register",methods=['POST', 'GET'])
+def do_reg():
+    return get_register()
 
 if __name__ == "__main__":
     app.run(port = 8080, debug = True, host = "localhost")

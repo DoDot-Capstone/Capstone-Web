@@ -21,20 +21,20 @@ class User(UserMixin):
     # flask_login의 user_loader에서 사용자 정보를 조회할 때 사용한다.
     @staticmethod
     def get_user_info(user_id, user_pw=None):
-        result = dict()
+        result = {}
 
         try:
             sql = ""
-            sql += f"SELECT user_id, `username`, `email`, `password_hash`, created_at, updated_at "
+            sql += f"SELECT user_id, username, email, password_hash, created_at, updated_at "
             sql += f"FROM users "
             if user_pw:
-                sql += f"WHERE user_id = '{user_id}' AND `password_hash` = '{user_pw}'; "
+                sql += f"WHERE username = '{user_id}' AND password_hash = '{user_pw}'; "
             else:
-                sql += f"WHERE USER_ID = '{user_id}'; "
-
+                sql += f"WHERE username = '{user_id}'; "
             result = project2.database.mysql.execute_query(sql)
-
+            result[0]['result'] = 1
         except :
-            result['result'] = 'fail'
+            result[0]['result'] = 0
         finally:
+            print(result)
             return result

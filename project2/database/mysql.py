@@ -24,15 +24,15 @@ def execute_query(operation):
     try:
         # 연결을 가져옴
         connection = get_connection()
-
+        print('db연결완료')
         # 쿼리 수행
         cursor = connection.cursor(dictionary=True)
+        print(operation)
         cursor.execute(operation)
         results = cursor.fetchall()
-
+        connection.commit()
         # 결과 출력
-        for row in results:
-            print(row)
+
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")

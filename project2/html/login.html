@@ -55,7 +55,7 @@
               </form>
             </div>
             <div class="sign-in-container">
-              <form id='login'>
+              <form id='login' name="login">
                 <h1>Sign In</h1>
                 <div class="social-links">
                   <div>
@@ -69,8 +69,8 @@
                   </div>
                 </div>
                 <span>or use your account</span>
-                <input type="id" placeholder="id" id="id">
-                <input type="password" placeholder="Password" id="password">
+                <input type="id" placeholder="id" id="id" name="id">
+                <input type="password" placeholder="Password" id="password" name="password">
                 <button class="form_btn" onclick='performLogin(event)'>Sign In</button>
                 <script>
                   function performLogin(event) {
@@ -94,7 +94,7 @@
                     })
                     .catch(error=>{
                       console.log('에러:', error);
-                      alert('로그인 중 오류가 발생했습니다.');
+                      alert('로그인이 실패했습니다.');
                     });
                 }
                </script>

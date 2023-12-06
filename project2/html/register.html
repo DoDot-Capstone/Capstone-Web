@@ -34,13 +34,38 @@
         <div class="content">
           <div class="container">
             <div class="sign-in-container">
-              <form>
+              <form id='register' name="register">
                 <h1>Sign Up</h1>
                 <span>Create your account</span>
-                <input type="reg_id" placeholder="id">
-                <input type="reg_password" placeholder="Password">
-                <input type="reg_email" placeholder="email">
-                <button class="form_btn">Register</button>
+                <input type="reg_id" placeholder="id" name="reg_id">
+                <input type="reg_password" placeholder="Password" name="reg_password">
+                <input type="reg_email" placeholder="email" name="reg_email">
+                <button class="form_btn" onclick='performRegister(event)'>Register</button>
+                <script>
+                  function performRegister(event) {
+                    event.preventDefault();
+                    const RegisterData = new FormData(document.getElementById('register'));
+
+                    // 서버로 데이터를 전송하는 AJAX 요청
+                    fetch('/register', {
+                        method: 'POST',
+                        body: RegisterData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 서버 응답에 따라 처리
+                        if (data.register_success) {
+                            alert('회원가입에 성공하였습니다.');
+                        } else {
+                            alert('회원가입에 실패하였습니다.');
+                        }
+                    })
+                    .catch(error=>{
+                      console.log('에러:', error);
+                      alert('오류가 발생했습니다.');
+                    });
+                }
+               </script>
                </form>
             </div>
           </div>
