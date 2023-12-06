@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    {% include url_for('static', filename='meta.html') %}
+    <title>도도돋도돋</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+  </head>
+  <body>
+    <!-- [S]basic-N1 -->
+    {% include url_for('static', filename='header.html') %}
+    <main>
+      <div>post_id: {{article["post_id"]}}</div>
+      <div>title: {{article["title"]}}</div>
+      <div>content: {{article["content"]}}</div>
+      <div>user_id: {{article["user_id"]}}</div>
+      <div>created_at: {{article["created_at"]}}</div>
+      <div>updated_at: {{article["updated_at"]}}</div>
+    </main>
+    {% include url_for('static', filename='footer.html') %}
+    <!-- [E]basic-N4 -->
+    <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

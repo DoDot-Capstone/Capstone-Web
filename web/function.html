@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    {% include url_for('static', filename='meta.html') %}
+    <title>도도돋도돋</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+  </head>
+  <body>
+    <!-- [S]basic-N1 -->
+    {% include url_for('static', filename='header.html') %}
+    <!-- [E]basic-N1 -->
+    <main class="th-layout-main">
+      <!-- [S]basic-N6 -->
+      <section class="funtion">
+        <h1>여기에 기능 넣으면 댐</h1>
+      </section>
+      <!-- [E]basic-N6 -->
+    </main>
+
+    <!-- [S]basic-N4 -->
+    {% include url_for('static', filename='footer.html') %}
+    <!-- [E]basic-N4 -->
+    <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

@@ -8,6 +8,7 @@
  - selenium
  - requests
  - beautifulsoup4
+ - mysql.connector
 ###
 #### 해당 명령어로 모듈 다운로드 가능
 ````

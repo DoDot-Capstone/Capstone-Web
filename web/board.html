@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    {% include url_for('static', filename='meta.html') %}
+    <title>도도돋도돋</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+  </head>
+  <body>
+    <!-- [S]basic-N1 -->
+    {% include url_for('static', filename='header.html') %}
+    <!-- [E]basic-N1 -->
+    <main class="th-layout-main">
+      <!-- [S]basic-N6 -->
+      <section class="notice">
+        <div class="page-title">
+          <div class="container">
+            <h3>게시판</h3>
+          </div>
+        </div>
+
+        <!-- board seach area -->
+        <div id="board-search">
+          <div class="container">
+            <div class="search-window">
+              <form action="">
+                <div class="search-wrap">
+                  <label for="search" class="blind">게시판 내용 검색</label>
+                  <input
+                    id="search"
+                    type="search"
+                    name=""
+                    placeholder="검색어를 입력해주세요."
+                    value=""
+                  />
+                  <button type="submit" class="btn btn-dark">검색</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- board list area -->
+        <div id="board-list">
+          <div class="container">
+            <table class="board-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="th-num">번호</th>
+                  <th scope="col" class="th-title">제목</th>
+                  <th scope="col" class="th-writer">작성자</th>
+                  <th scope="col" class="th-date">등록일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in posts %}
+
+                <tr
+                  class="table-row"
+                  onclick="location.href='/article/' + {{post['post_id']}}"
+                >
+                  <td>{{post["post_id"]}}</td>
+                  <td>{{post["title"]}}</td>
+                  <td>{{post["user_id"]}}</td>
+                  <td>{{post["created_at"]}}</td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="button-container">
+            <div class="button-area">
+              <button class="btn btn-dark article-btn">
+                <a href="/upload" style="color: white">글 작성하기</a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- [E]basic-N6 -->
+    </main>
+
+    <!-- [S]basic-N4 -->
+    {% include url_for('static', filename='footer.html') %}
+    <!-- [E]basic-N4 -->
+    <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
