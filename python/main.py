@@ -18,8 +18,22 @@ def home():
 @app.route("/board")
 def board():
     parameter_dict = request.args.to_dict()
-    page = parameter_dict["page"]
-    return render_template("board.html", posts=Article.load_all_article()[int(page) * 20: (int(page) + 1) * 20 ])
+    page = 1
+    if "page" in parameter_dict.keys():
+        page = int(parameter_dict["page"])
+
+    if "search" in parameter_dict.keys():
+        search_value = parameter_dict["search"]
+        return render_template("board.html", posts = Article.search_article(search_value, page), 
+                               search_value = search_value, 
+                               page = page, 
+                               max_page = Article.get_max_page(search_value))
+
+    else:
+        return render_template("board.html", posts=Article.get_all_article(page), 
+                               search_value = "", 
+                               page = page, 
+                               max_page = Article.get_max_page())
 
 @app.route("/article/<articleNo>")
 def article(articleNo):

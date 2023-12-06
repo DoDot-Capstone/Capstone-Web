@@ -25,24 +25,74 @@ class Article:
         }
 
     @staticmethod
-    def load_all_article():
+    def get_all_article(page: int = 1, count: int = 15):
         try:
             conn = get_connection()
             cursor = conn.cursor()
             cursor.execute(f"""
-                SELECT * FROM posts;
+                SELECT * FROM posts
+                WHERE post_id BETWEEN {(page - 1) * count + 1} AND {page * count + 1}
+                ORDER BY post_id ASC;
             """)
 
             results = cursor.fetchall()
-            return list(map(lambda x: Article(*x).convert_json, results))
+            cursor.close()
+            conn.close()
+            return list(map(lambda x: {
+                "post_id": x[0],
+                "title": x[1],
+                "username": User.load_username_from_user_id(x[3]),
+                "created_at": x[4]
+            }, results))
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
 
-        finally:
+    @staticmethod
+    def search_article(search_value: str, page: int = 1, count: int = 15):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute(f"""
+                SELECT * FROM posts
+                WHERE title LIKE '%{search_value}%'
+                AND  post_id BETWEEN {(page - 1) * count + 1} AND {page * count + 1}
+                ORDER BY post_id ASC;
+            """)
+
+            results = cursor.fetchall()
             cursor.close()
             conn.close()
+            return list(map(lambda x: {
+                "post_id": x[0],
+                "title": x[1],
+                "username": User.load_username_from_user_id(x[3]),
+                "created_at": x[4]
+            }, results))
+        
+        except Exception as e:
+            logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
+            exit(1)
+
+    @staticmethod
+    def get_max_page(search_value: str | None = None, count: int = 15):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            sql = "SELECT COUNT(*) FROM posts"
+            if search_value:
+                sql += f" WHERE title LIKE '%{search_value}%'"
+            cursor.execute(sql + ";")
+
+            cnt = cursor.fetchone()
+            cursor.close()
+            conn.close()
+            return cnt[0] // count + 1
+
+        except Exception as e:
+            logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
+            exit(1)
 
     @staticmethod
     def load_article_with_post_id(post_id: int):
@@ -54,16 +104,13 @@ class Article:
             """)
 
             results = cursor.fetchall()
-            print(results[0])
+            cursor.close()
+            conn.close()
             return Article(*results[0]).convert_json
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
-
-        finally:
-            cursor.close()
-            conn.close()
 
     @staticmethod
     def insert_article(title: str, content: str, user_id: int):
@@ -75,12 +122,10 @@ class Article:
             """)
             results = cursor.fetchall()
             conn.commit()
+            cursor.close()
+            conn.close()
             return len(results) is not None
 
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
-
-        finally:
-            cursor.close()
-            conn.close()
