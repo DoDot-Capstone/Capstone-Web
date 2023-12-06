@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
-from datetime import datetime
-from db import database
 from db.models.article import Article
 from db.models.user import User
 from user.register import get_register
 from user.login_session import login_get_info
 
+HOST = 'localhost'
+PORT = 8080
+DEBUG = True
 
 print('실행')
 app = Flask(__name__, template_folder='../web', static_folder='../web/static')
@@ -58,4 +59,4 @@ def function():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8080, debug=True)
+    app.run(host=HOST, port=PORT, debug=DEBUG)

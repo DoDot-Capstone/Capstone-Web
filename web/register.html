@@ -23,7 +23,7 @@
           <div class="header-right">
             <div class="header-lang">
               <button class="header-langbtn">
-                <a href="{{ url_for('home') }}">돌아가기</a>
+                <a href="{{ url_for('login') }}">돌아가기</a>
               </button>
             </div>
           </div>
@@ -53,15 +53,16 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        // 서버 응답에 따라 처리
-                        if (data.register_success) {
-                            alert('회원가입에 성공하였습니다.');
-                        } else {
-                            alert('회원가입에 실패하였습니다.');
-                        }
+                      // 서버 응답에 따라 처리
+                      alert(data.register_message);
+                      if (data.register_type == 1) {
+                        location.href = "{{ url_for('login') }}";
+                      } else if (data.register_type == 2) {
+                        location.href = "{{ url_for('register') }}";
+                      }
                     })
                     .catch(error=>{
-                      console.log('에러:', error);
+                      console.log('에러:' + error);
                       alert('오류가 발생했습니다.');
                     });
                 }

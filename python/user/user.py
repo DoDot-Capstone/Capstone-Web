@@ -3,6 +3,7 @@ from flask_login import UserMixin
 
 # DB 연결 정보가 저장되어 있는 config
 import python.db.database
+import hashlib
 
 
 # UserMixin 상속하여 flask_login에서 제공하는 기본 함수들 사용
@@ -23,13 +24,16 @@ class User(UserMixin):
     def get_user_info(user_id, user_pw=None):
 
         try:
-            sql = f"SELECT user_id, username, email, password_hash, created_at, updated_at "
-            sql += f"FROM users "
+            sql = f"SELECT user_id, username, email, password_hash, created_at, updated_at FROM users "
+
             if user_pw:
-                sql += f"WHERE username = '{user_id}' AND password_hash = '{user_pw}'; "
+                user_pw = hashlib.sha256(user_pw.encode()).hexdigest()
+                sql += f"WHERE username = %s AND password_hash = %s;"
+                values = (user_id, user_pw)
             else:
-                sql += f"WHERE username = '{user_id}'; "
-            result = python.db.database.execute_query(sql)
+                sql += f"WHERE username = '{user_id}';"
+                values = (user_id, )
+            result = python.db.database.execute_query(sql, values)
             print("result : ", result)
             result[0]['result'] = 1
         except:
