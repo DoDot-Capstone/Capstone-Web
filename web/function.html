@@ -9,17 +9,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/function.css') }}">
   </head>
-  <body>
+<body>
     <!-- [S]basic-N1 -->
     {% include url_for('static', filename='header.html') %}
     <!-- [E]basic-N1 -->
     <main class="th-layout-main">
-      <!-- [S]basic-N6 -->
-      <section class="funtion">
-        <h1>여기에 기능 넣으면 댐</h1>
-      </section>
-      <!-- [E]basic-N6 -->
+        <!-- [S]basic-N6 -->
+        <section class="funtion">
+            <div id="chat-container">
+                <div id="chat-output"></div>
+                <div id="user-input">
+                    <input type="text" id="input-message" placeholder="메시지를 입력하세요...">
+                    <button onclick="sendMessage()">전송</button>
+                </div>
+            </div>
+            <script src="{{ url_for('static', filename='js/function.js') }}"></script>
+        </section>
+        <!-- [E]basic-N6 -->
     </main>
 
     <!-- [S]basic-N4 -->
