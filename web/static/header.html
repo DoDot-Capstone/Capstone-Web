@@ -1,70 +1,75 @@
-    <header class="basic-N1" data-bid="WiLOy3e50y">
-      <div class="header-inner">
-        <div class="header-container container-lg">
-          <a href="{{ url_for('home') }}">
-            <h8 class="header-title">
-              <img src="{{ url_for('static', filename='images/logo3.png') }}" alt="로고" />
-            </h8>
+<header class="basic-N1" data-bid="WiLOy3e50y">
+  <div class="header-inner">
+    <div class="header-container container-lg">
+      <a href="{{ url_for('home') }}">
+        <h8 class="header-title">
+          <img
+            src="{{ url_for('static', filename='images/logo3.png') }}"
+            alt="로고"
+          />
+        </h8>
+      </a>
+      <div class="header-center">
+        <div class="header-title header-mobile-top">
+          <a href="javascript:void(0)">
+            <img
+              src="{{ url_for('static', filename='images/logo3.png') }}"
+              alt="로고"
+            />
           </a>
-          <div class="header-center">
-            <div class="header-title header-mobile-top">
-              <a href="javascript:void(0)">
-                <img src="{{ url_for('static', filename='images/logo3.png') }}" alt="로고" />
-              </a>
-            </div>
-            <ul class="header-gnblist">
-
-              <li class="header-gnbitem">
-                <a class="header-gnblink" href="{{url_for('introduction') }}">
-                  <span>기능소개</span>
-                </a>
-              </li>
-              <li class="header-gnbitem">
-                <a class="header-gnblink" href="{{ url_for('articles') }}">
-                  <span>게시판</span>
-                </a>
-              </li>
-              <li class="header-gnbitem">
-                <a class="header-gnblink" href="{{ url_for('function') }}">
-                  <span>기능</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="header-right">
-            <div class="header-lang">
-              <button class="header-langbtn">
-                {% if current_user.is_authenticated %}
-                  <!--로그인한 경우 -->
-                  <a href="{{ url_for('logout') }}">로그아웃</a>
-                {% else %}
-                  <!-- 로그인하지 않은 경우 -->
-                  <a href="{{ url_for('login') }}">로그인</a>
-                {% endif %}
-              </button>
-            </div>
-            <div class="header-utils">
-              <button class="btn-allmenu">
-                <img
-                  src="{{ url_for('static', filename='icons/ico_menu_black.svg') }}"
-                  alt="PC메뉴 아이콘"
-                />
-              </button>
-              <button class="btn-momenu">
-                <img
-                  src="{{ url_for('static', filename='icons/ico_menu_black.svg') }}"
-                  alt="모바일메뉴 아이콘"
-                />
-              </button>
-              <button class="btn-close">
-                <img
-                  src="{{ url_for('static', filename='icons/ico_close_black.svg') }}"
-                  alt="닫기 아이콘"
-                />
-              </button>
-            </div>
-          </div>
+        </div>
+        <ul class="header-gnblist">
+          <li class="header-gnbitem">
+            <a class="header-gnblink" href="{{url_for('introduction') }}">
+              <span>기능소개</span>
+            </a>
+          </li>
+          <li class="header-gnbitem">
+            <a class="header-gnblink" href="{{ url_for('board') }}">
+              <span>게시판</span>
+            </a>
+          </li>
+          <li class="header-gnbitem">
+            <a class="header-gnblink" href="{{ url_for('function') }}">
+              <span>기능</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <div class="header-lang">
+          <button class="header-langbtn">
+            {% if current_user.is_authenticated %}
+            <!--로그인한 경우 -->
+            <a href="{{ url_for('logout') }}">로그아웃</a>
+            {% else %}
+            <!-- 로그인하지 않은 경우 -->
+            <a href="{{ url_for('login') }}">로그인</a>
+            {% endif %}
+          </button>
+        </div>
+        <div class="header-utils">
+          <button class="btn-allmenu">
+            <img
+              src="{{ url_for('static', filename='icons/ico_menu_black.svg') }}"
+              alt="PC메뉴 아이콘"
+            />
+          </button>
+          <button class="btn-momenu">
+            <img
+              src="{{ url_for('static', filename='icons/ico_menu_black.svg') }}"
+              alt="모바일메뉴 아이콘"
+            />
+          </button>
+          <button class="btn-close">
+            <img
+              src="{{ url_for('static', filename='icons/ico_close_black.svg') }}"
+              alt="닫기 아이콘"
+            />
+          </button>
         </div>
       </div>
-      <div class="header-dim"></div>
-    </header>
+    </div>
+  </div>
+  <div class="header-dim"></div>
+</header>
