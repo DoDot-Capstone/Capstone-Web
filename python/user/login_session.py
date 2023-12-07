@@ -1,7 +1,6 @@
 from flask import render_template, redirect, request, jsonify
-from flask_login import logout_user
+from flask_login import logout_user, login_user
 from python.user.user import User
-
 
 def root():
     return redirect('/login')
@@ -9,7 +8,6 @@ def root():
 
 def login():
     return render_template('common/template_login.html')
-
 
 # 로그인 실행
 # 로그인 계정 정보는 post로 받아오지만
@@ -30,7 +28,7 @@ def login_get_info():
         # 사용자 객체 생성
         login_info = User(user_id=user_info[0]['user_id'])
         # 사용자 객체를 session에 저장
-        # login_user(login_info)
+        login_user(login_info)
         #클라이언트로 True값을 갖는 dictionary전송 > 클라이언트측에서 값을 받아 js로 console.log 출력
         return jsonify({'login_success': True})
     else:

@@ -31,7 +31,7 @@ class User(UserMixin):
                 sql += f"WHERE username = %s AND password_hash = %s;"
                 values = (user_id, user_pw)
             else:
-                sql += f"WHERE username = '{user_id}';"
+                sql += f"WHERE user_id = '{user_id}';"
                 values = (user_id, )
             result = python.db.database.execute_query(sql, values)
             print("result : ", result)

@@ -34,7 +34,13 @@
           <div class="header-right">
             <div class="header-lang">
               <button class="header-langbtn">
-                <a href="/login">로그인</a>
+                {% if current_user.is_authenticated %}
+                  <!--로그인한 경우 -->
+                  <a href="/logout">로그아웃</a>
+                {% else %}
+                  <!-- 로그인하지 않은 경우 -->
+                  <a href="/login">로그인</a>
+                {% endif %}
               </button>
             </div>
             <div class="header-utils">

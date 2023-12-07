@@ -3,13 +3,17 @@ from db.models.article import Article
 from db.models.user import User
 from user.register import get_register
 from user.login_session import login_get_info
+from flask_login import LoginManager, logout_user
+from user.user import User
 
 HOST = 'localhost'
 PORT = 8080
 DEBUG = True
-
 print('실행')
+login_manager=LoginManager()
 app = Flask(__name__, template_folder='../web', static_folder='../web/static')
+login_manager.init_app(app)
+app.secret_key = 'super_secret_key'
 
 @app.route("/")
 def home():
@@ -63,6 +67,11 @@ def articles():
 def login_info():
     return login_get_info()
 
+@app.route("/logout",methods=['GET'])
+def logout():
+    logout_user()
+    return render_template('initial.html')
+
 @app.route("/register", methods=['POST', 'GET'])
 def do_reg():
     return get_register()
@@ -72,6 +81,9 @@ def Introduction():
 @app.route("/function")
 def function():
     return render_template("function.html")
+@login_manager.user_loader
+def load_user(user_id):
+	return User(user_id)
 
 
 

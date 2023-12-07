@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from python.db.database import get_connection
 from python.db.models.user import User
