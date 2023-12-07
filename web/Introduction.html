@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    {% include url_for('static', filename='meta.html') %}
+    <title>도도돋도돋</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+  </head>
+  <body>
+    <!-- [S]basic-N1 -->
+    {% include url_for('static', filename='header.html') %}
+    <!-- [E]basic-N1 -->
+    <main class="th-layout-main">
+      <!-- [S]basic-N6 -->
+      <section class="function">
+        <h1>여기에 기능 넣으면 댐</h1>
+        <p class="textset-desc"> 웹사이트는 비즈니스의 온라인 존재감을 나타내는 중요한 수단이며, 비즈니스가 웹사이트를 보유하면 <br> 전 세계 어디에서든 제품과 서비스에 대한 정보를 제공할 수 있습니다. 이를 통해 새로운 고객을 유치하고, 기존 고객과의 관계를 유지할 수 있습니다. </p>
+      </section>
+      <!-- [E]basic-N6 -->
+    </main>
+
+    <!-- [S]basic-N4 -->
+    {% include url_for('static', filename='footer.html') %}
+    <!-- [E]basic-N4 -->
+    <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
