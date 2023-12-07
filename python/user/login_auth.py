@@ -14,9 +14,12 @@ def login():
 # 일반 리소스들은 get으로 받아오므로 get과 post모두 선언해줘야 한다.
 def login_get_info():
     data_from_client = request.form
+
     user_id = data_from_client.get('id')
     user_pw = data_from_client.get('password')
+
     print(user_id, user_pw)
+
     if user_id is None or user_pw is None:
         return jsonify({'login_success': False})
 

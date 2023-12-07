@@ -79,7 +79,7 @@
                     const loginData = new FormData(document.getElementById('login'));
 
                     // 서버로 데이터를 전송하는 AJAX 요청
-                    fetch('/loginsession', {
+                    fetch("{{ url_for('login_auth') }}", {
                         method: 'POST',
                         body: loginData
                     })

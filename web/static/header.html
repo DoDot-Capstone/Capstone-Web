@@ -15,7 +15,7 @@
             <ul class="header-gnblist">
 
               <li class="header-gnbitem">
-                <a class="header-gnblink" href="{{url_for('Introduction') }}">
+                <a class="header-gnblink" href="{{url_for('introduction') }}">
                   <span>기능소개</span>
                 </a>
               </li>
@@ -36,10 +36,10 @@
               <button class="header-langbtn">
                 {% if current_user.is_authenticated %}
                   <!--로그인한 경우 -->
-                  <a href="/logout">로그아웃</a>
+                  <a href="{{ url_for('logout') }}">로그아웃</a>
                 {% else %}
                   <!-- 로그인하지 않은 경우 -->
-                  <a href="/login">로그인</a>
+                  <a href="{{ url_for('login') }}">로그인</a>
                 {% endif %}
               </button>
             </div>
