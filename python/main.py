@@ -62,31 +62,41 @@ def introduction():
 
 @app.route("/function")
 def function():
-    return render_template("function.html")
+    # 현재 사용자가 인증되었는지 확인합니다
+    if current_user.is_authenticated:
+        # 사용자가 인증되었으면 "function.html" 템플릿을 렌더링합니다.
+        return render_template("function.html")
+    else:
+        # 사용자가 인증되지 않았다면 로그인 페이지로 리다이렉트합니다.
+        return redirect(url_for('login'))
 
 @app.route("/upload")
 def upload():
     return render_template("upload.html")
 
+
 @app.route("/board")
 def board():
-    parameter_dict = request.args.to_dict()
-    page = 1
-    if "page" in parameter_dict.keys():
-        page = int(parameter_dict["page"])
+    if current_user.is_authenticated:
+        parameter_dict = request.args.to_dict()
+        page = 1
+        if "page" in parameter_dict.keys():
+            page = int(parameter_dict["page"])
 
-    if "search" in parameter_dict.keys():
-        search_value = parameter_dict["search"]
-        return render_template("board.html", posts = Article.search_article(search_value, page),
-                               search_value = search_value,
-                               page = page,
-                               max_page = Article.get_max_page(search_value))
+        if "search" in parameter_dict.keys():
+            search_value = parameter_dict["search"]
+            return render_template("board.html", posts=Article.search_article(search_value, page),
+                                   search_value=search_value,
+                                   page=page,
+                                   max_page=Article.get_max_page(search_value))
 
+        else:
+            return render_template("board.html", posts=Article.get_all_article(page),
+                                   search_value="",
+                                   page=page,
+                                   max_page=Article.get_max_page())
     else:
-        return render_template("board.html", posts=Article.get_all_article(page),
-                               search_value = "",
-                               page = page,
-                               max_page = Article.get_max_page())
+        return redirect(url_for('login'))
 
 @app.route("/article/<articleNo>")
 def article(articleNo):
