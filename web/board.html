@@ -97,13 +97,18 @@
             <a
               class="pagination {{'pagination-active' if no == page else ''}}"
               href="/board?page={{no}}"
-              >{{no}}</a>
+              >{{no}}</a
+            >
             {% endfor %}
           </div>
           <div class="button-container">
             <div class="button-area">
               <button class="btn btn-dark article-btn">
-                <a href="/upload" style="color: white">글 작성하기</a>
+                <a
+                  href="{{'/upload' if current_user.is_authenticated else '/login'}}"
+                  style="color: white"
+                  >글 작성하기</a
+                >
               </button>
             </div>
           </div>
