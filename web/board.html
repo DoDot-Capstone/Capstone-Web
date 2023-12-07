@@ -93,7 +93,7 @@
           </div>
           <div class="pagination-container">
             {% for no in range(page - 2 if page - 2 > 1 else 1, page + 3 if page
-            + 3 < max_page + 1 else max_page + 1) %}
+            + 3 < max_page + 2 else max_page + 2) %}
             <a
               class="pagination {{'pagination-active' if no == page else ''}}"
               href="/board?page={{no}}"
