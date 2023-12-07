@@ -32,6 +32,7 @@ body {
     padding: 8px;
     margin-right: 10px;
     background-color: #FFFFFF;
+    font-size: 20px;
 }
 
 button {
@@ -41,16 +42,20 @@ button {
 
 .user-message {
     background-color:#dcdcdc;
-    padding: 8px;
-    margin-bottom: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 20px;
 }
 
 .gpt-message {
     background-color: #f8f8ff;
-    padding: 8px;
-    margin-bottom: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 20px;
 }
-.th-layout-main { background-color: #151515; }
+.th-layout-main {
+    background-color: #151515;
+    padding:15px;}
 
 #chat-output::-webkit-scrollbar {
     width: 12px; /* 스크롤바의 너비 */
