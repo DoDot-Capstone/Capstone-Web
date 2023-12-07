@@ -101,6 +101,10 @@
 }
 
 /* basic-N6 [SiLOY3e52B] */
+.basic-N6 .contents-container { overflow: hidden; }
+/*.basic-N6 .contents-container-fu { background-color:#000000; }*/
+
+
 .basic-N6 .contents-container { padding: 8rem 2rem; }
 .basic-N6 .textset { text-align: center; margin-bottom: 0; }
 @media (max-width: 992px) {

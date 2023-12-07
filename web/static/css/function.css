@@ -10,7 +10,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
-    background-color:#000000;
+    background-color:#111111;
 }
 
 #chat-output {
