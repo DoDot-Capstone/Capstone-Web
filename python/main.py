@@ -66,10 +66,13 @@ def login_info():
 @app.route("/register", methods=['POST', 'GET'])
 def do_reg():
     return get_register()
-
+@app.route("/Introduction")
+def Introduction():
+    return render_template("Introduction.html")
 @app.route("/function")
 def function():
     return render_template("function.html")
+
 
 
 if __name__ == "__main__":

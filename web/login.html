@@ -88,8 +88,10 @@
                         // 서버 응답에 따라 처리
                         if (data.login_success) {
                             alert('로그인이 성공했습니다.');
+                            location.href = "{{ url_for('home') }}";
                         } else {
                             alert('로그인이 실패했습니다.');
+                            location.href = "{{ url_for('login') }}";
                         }
                     })
                     .catch(error=>{
