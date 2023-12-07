@@ -18,11 +18,11 @@ body {
 }
 .container {
   border-radius: 10px;
-  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
   position: absolute;
   width: 768px;
   min-height: 480px;
   overflow: hidden;
+  background-color:#000000;
 }
 
 form {

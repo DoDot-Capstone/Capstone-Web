@@ -3,28 +3,27 @@ body {
     margin: 0;
     padding: 0;
 }
-
 #chat-container {
     width: 1000px;
-    margin: 50px auto;
+    margin: 1px auto;
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
-    background-color:#111111;
+    background-color:#BDBDBD;
 }
 
 #chat-output {
-    background-color:#696969;
-    height: 700px;
-    width:1000px;
+    height:900px;
     overflow-y: scroll;
     padding: 10px;
 }
 /*사용자 입력창*/
 #user-input {
+    height:100px;
     display: flex;
     align-items: center;
     padding: 10px;
+    background-color:#dcdcdc;
 
 }
 
@@ -32,8 +31,7 @@ body {
     flex: 1;
     padding: 8px;
     margin-right: 10px;
-    color: 	#dcdcdc;
-    background-color: #000003;
+    background-color: #FFFFFF;
 }
 
 button {
@@ -51,4 +49,21 @@ button {
     background-color: #f8f8ff;
     padding: 8px;
     margin-bottom: 5px;
+}
+.th-layout-main { background-color: #151515; }
+
+#chat-output::-webkit-scrollbar {
+    width: 12px; /* 스크롤바의 너비 */
+}
+
+#chat-output::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* 스크롤바 트랙의 배경 색상 */
+}
+
+#chat-output::-webkit-scrollbar-thumb {
+    background-color: #888; /* 스크롤바 핸들의 색상 */
+}
+
+#chat-output::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* 스크롤바 핸들의 호버 시의 색상 */
 }
