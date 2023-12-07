@@ -36,17 +36,6 @@
             <div class="sign-up-container">
               <form>
                 <h1>Create Account</h1>
-                <div class="social-links">
-                  <div>
-                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                  </div>
-                </div>
                 <span>or use your email for registration</span>
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
@@ -57,18 +46,7 @@
             <div class="sign-in-container">
               <form id='login' name="login">
                 <h1>Sign In</h1>
-                <div class="social-links">
-                  <div>
-                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                  </div>
-                </div>
-                <span>or use your account</span>
+                <span></span>
                 <input type="id" placeholder="id" id="id" name="id">
                 <input type="password" placeholder="Password" id="password" name="password">
                 <button class="form_btn" onclick='performLogin(event)'>Sign In</button>
@@ -109,9 +87,9 @@
                 <button id="signIn" class="overlay_btn">Sign In </button>
               </div>
               <div class="overlay-right">
-                <h1>Hello, Friend</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <a href="{{ url_for('register') }}">
+                <h1>Sign Up</h1>
+                <p>회원가입을 통해 게시판을 이용해보세요</p>
+                <a href="{{ url_for('register') }}"/>
                 <button id="signUp" class="overlay_btn">Sign Up</button>
               </div>
             </div>
