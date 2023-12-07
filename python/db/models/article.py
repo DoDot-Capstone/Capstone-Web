@@ -4,6 +4,13 @@ from python.db.models.user import User
 import logging
 import traceback
 
+"""
+    python.user.user 의 User모델에서 get_user_info() 함수 개선 필요
+    Error: Not all parameters were used in the SQL statement
+    prepared Statement를 사용하면 해결되는것으로 예측
+    cursor생성시 prepared = True 옵션을 부여
+"""
+
 class Article:
     def __init__(self, post_id: int, title: str, content: str, user_id: int, created_at: datetime = datetime.now(), updated_at: datetime = datetime.now()):
         self.post_id = post_id
@@ -19,16 +26,16 @@ class Article:
             "post_id": result.post_id,
             "title": result.title,
             "content": result.content,
-            "user_id": User.load_username_from_user_id(result.user_id),
+            "username": User.load_username_from_user_id(result.user_id),
             "created_at": result.created_at,
             "updated_at": result.updated_at
         }
 
     @staticmethod
     def get_all_article(page: int = 1, count: int = 15):
+        conn = get_connection()
+        cursor = conn.cursor()
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
             cursor.execute(f"""
                 SELECT * FROM posts
                 ORDER BY created_at DESC
@@ -36,7 +43,6 @@ class Article:
             """)
 
             results = cursor.fetchall()
-            cursor. close()
             return list(map(lambda x: {
                 "post_id": x[0],
                 "title": x[1],
@@ -48,11 +54,15 @@ class Article:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
 
+        finally:
+            cursor.close()
+            conn.close()
+
     @staticmethod
     def search_article(search_value: str, page: int = 1, count: int = 15):
+        conn = get_connection()
+        cursor = conn.cursor()
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
             cursor.execute(f"""
                 SELECT * FROM posts
                 WHERE title LIKE '%{search_value}%'
@@ -61,7 +71,6 @@ class Article:
             """)
 
             results = cursor.fetchall()
-            cursor.close()
             return list(map(lambda x: {
                 "post_id": x[0],
                 "title": x[1],
@@ -73,54 +82,67 @@ class Article:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
 
+        finally:
+            cursor.close()
+            conn.close()
+
     @staticmethod
     def get_max_page(search_value: str | None = None, count: int = 15):
+        conn = get_connection()
+        cursor = conn.cursor()
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
             sql = "SELECT COUNT(*) FROM posts"
             if search_value:
                 sql += " WHERE title LIKE '%{search_value}%'"
             cursor.execute(sql + ";")
 
             cnt = cursor.fetchone()
-            cursor.close()
             return (cnt[0] // count) + 1
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
 
+        finally:
+            cursor.close()
+            conn.close()
+
     @staticmethod
     def load_article_with_post_id(post_id: int):
+        conn = get_connection()
+        cursor = conn.cursor()
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
             cursor.execute(f"""
                 SELECT * FROM posts WHERE post_id={post_id};
             """)
 
             results = cursor.fetchall()
-            cursor.close()
             return Article(*results[0]).convert_json
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
+            
+        finally:
+            cursor.close()
+            conn.close()
 
     @staticmethod
     def insert_article(title: str, content: str, user_id: int):
+        conn = get_connection()
+        cursor = conn.cursor()
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
             cursor.execute(f"""
                 INSERT INTO posts(title, content, user_id) VALUES ('{title}', '{content}', {user_id});
             """)
             results = cursor.fetchall()
-            conn.commit()
-            cursor.close()
             return 200 if len(results) == 0 else 401
 
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             return 500
+        
+        finally:
+            conn.commit()
+            cursor.close()
+            conn.close()
