@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from datetime import datetime
 from python.db.database import get_connection
 from python.db.models.user import User
@@ -44,7 +42,7 @@ class Article:
                 "post_id": x[0],
                 "title": x[1],
                 "username": User.load_username_from_user_id(x[3]),
-                "created_at": x[4]
+                "created_at": x[4].strftime("%Y년 %m월 %d일")
             }, results))
         
         except Exception as e:
@@ -84,14 +82,14 @@ class Article:
             cursor = conn.cursor()
             sql = "SELECT COUNT(*) FROM posts"
             if search_value:
-                sql += f" WHERE title LIKE '%{search_value}%'"
+                sql += " WHERE title LIKE '%{search_value}%'"
             cursor.execute(sql + ";")
 
             cnt = cursor.fetchone()
             cursor.close()
             conn.close()
-            return cnt[0] // count + 1
-
+            return cnt[0] // count
+        
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             exit(1)
