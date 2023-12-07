@@ -4,9 +4,73 @@
   align-items: center;
 }
 
-.main-box {
+.upload-box {
   width: 80%;
-  height: 120vh;
+  height: 110vh;
   border: 1px solid black;
   margin-bottom: 20vh;
+}
+
+.upload-header {
+  display: flex;
+  height: 5%;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+  font-size: 1.2em;
+  background: #515151;
+  color: white;
+  border-radius: 0 0 50px 50px;
+}
+
+.input-group {
+  display: flex;
+  position: relative;
+  margin-top: 5vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-group > input,
+.input-group > textarea {
+  width: 80%;
+  padding: 1rem;
+  border: 1px solid #515151;
+  border-radius: 10px;
+}
+
+.input-group > input:focus,
+.input-group > textarea:focus {
+  border: 1px solid #000000;
+}
+
+.input-group > input:is(:focus, :valid) ~ label,
+.input-group > textarea:is(:focus, :valid) ~ label {
+  transform: translateY(-90%) scale(0.7);
+  background: white;
+  padding-inline: 0.3rem;
+}
+
+.input-group > label {
+  color: #8f8f8f;
+  position: absolute;
+  top: 1rem;
+  left: 10rem;
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+.input-group > textarea {
+  height: 70vh;
+}
+
+.button-area > button {
+  height: 5vh;
 }

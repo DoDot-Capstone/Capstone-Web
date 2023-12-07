@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db.models.article import Article
-from db.models.user import User
 from user.register import get_register
 from user.login_auth import login_get_info
 from flask_login import LoginManager, logout_user, current_user
+from flask_login.mixins import AnonymousUserMixin
 from user.user import User
 
 HOST = 'localhost'
@@ -16,7 +16,6 @@ login_manager = LoginManager()
 app = Flask(__name__, template_folder='../web', static_folder='../web/static')
 login_manager.init_app(app)
 app.secret_key = 'super_secret_key'
-
 @app.route("/")
 def home():
     return render_template("initial.html")
@@ -48,14 +47,6 @@ def do_reg():
 def load_user(user_id):
 	return User(user_id)
 
-@app.route("/users")
-def users():
-    return {"users": User.load_all_user()}
-
-@app.route("/articles")
-def articles():
-    return {"articles": Article.load_all_article()}
-
 @app.route("/introduction")
 def introduction():
     return render_template("introduction.html")
@@ -74,23 +65,40 @@ def function():
 def upload():
     return render_template("upload.html")
 
+@app.route("/upload", methods = ["POST"])
+def upload_request():
+    if isinstance(current_user, AnonymousUserMixin):
+        status = 403
+
+    else:
+        user_id = current_user.user_id
+        formdata = request.form
+        title = formdata.get("title")
+        content = formdata.get("content")
+        status = Article.insert_article(title, content, user_id)
+        
+    return app.response_class(response={}, status = status)
 
 @app.route("/board")
 def board():
     parameter_dict = request.args.to_dict()
     page = 1
+    count = 15
     if "page" in parameter_dict.keys():
         page = int(parameter_dict["page"])
 
+    if "count" in parameter_dict.keys():
+        count = int(parameter_dict["count"])
+
     if "search" in parameter_dict.keys():
         search_value = parameter_dict["search"]
-        return render_template("board.html", posts=Article.search_article(search_value, page),
+        return render_template("board.html", posts=Article.search_article(search_value, page, count),
                                 search_value=search_value,
                                 page=page,
                                 max_page=Article.get_max_page(search_value))
 
     else:
-        return render_template("board.html", posts=Article.get_all_article(page),
+        return render_template("board.html", posts=Article.get_all_article(page, count),
                                 search_value="",
                                 page=page,
                                 max_page=Article.get_max_page())

@@ -31,13 +31,12 @@ class Article:
             cursor = conn.cursor()
             cursor.execute(f"""
                 SELECT * FROM posts
-                WHERE post_id BETWEEN {(page - 1) * count + 1} AND {page * count + 1}
-                ORDER BY post_id ASC;
+                ORDER BY created_at DESC
+                LIMIT {count} OFFSET {(page - 1) * count}
             """)
 
             results = cursor.fetchall()
-            cursor.close()
-            conn.close()
+            cursor. close()
             return list(map(lambda x: {
                 "post_id": x[0],
                 "title": x[1],
@@ -57,13 +56,12 @@ class Article:
             cursor.execute(f"""
                 SELECT * FROM posts
                 WHERE title LIKE '%{search_value}%'
-                AND  post_id BETWEEN {(page - 1) * count + 1} AND {page * count + 1}
-                ORDER BY post_id ASC;
+                ORDER BY created_at DESC
+                LIMIT {count} OFFSET {(page - 1) * count}
             """)
 
             results = cursor.fetchall()
             cursor.close()
-            conn.close()
             return list(map(lambda x: {
                 "post_id": x[0],
                 "title": x[1],
@@ -87,8 +85,7 @@ class Article:
 
             cnt = cursor.fetchone()
             cursor.close()
-            conn.close()
-            return cnt[0] // count
+            return (cnt[0] // count) + 1
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
@@ -105,7 +102,6 @@ class Article:
 
             results = cursor.fetchall()
             cursor.close()
-            conn.close()
             return Article(*results[0]).convert_json
         
         except Exception as e:
@@ -123,9 +119,8 @@ class Article:
             results = cursor.fetchall()
             conn.commit()
             cursor.close()
-            conn.close()
-            return len(results) is not None
+            return 200 if len(results) == 0 else 401
 
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
-            exit(1)
+            return 500

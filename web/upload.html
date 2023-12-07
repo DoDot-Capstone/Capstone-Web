@@ -3,24 +3,121 @@
   <head>
     {% include url_for('static', filename='meta.html') %}
     <title>도도돋도돋</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/setting.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugin.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/setting.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/plugin.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/template.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/common.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/board.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/upload.css') }}"
+    />
   </head>
   <body>
     <!-- [S]basic-N1 -->
     {% include url_for('static', filename='header.html') %}
     <main>
       <div class="container">
-        <div class="main-box">
-          <h3>글 작성하기</h3>
-        </div>
+        <form class="upload-box" action="/upload" method="POST" onsubmit="requestUploadArticle(event)">
+          <div class="upload-header">
+            <div>글 작성하기</div>
+          </div>
+          <div class="upload-main">
+            <div class="input-group">
+              <input required type="text" name="title" id="title" />
+              <label for="title">제목</label>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <textarea
+              required
+              type="text"
+              name="content"
+              id="content"
+            ></textarea>
+            <label for="content">본론</label>
+          </div>
+          <div class="button-container">
+            <div class="button-area">
+              <div style="color: white">
+                <button type="submit" class="btn btn-dark">글 작성하기</button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </main>
+    <script>
+      const requestUploadArticle = (event) => {
+        event.preventDefault();
+        const title = document.querySelector("#title");
+        const content = document.querySelector("#content");
+
+        const uploadData = new FormData(
+          document.querySelector("form.upload-box")
+        );
+
+        fetch("{{url_for('upload')}}", {
+          method: "POST",
+          body: uploadData,
+        })
+          .then((response) => {
+            var message = "";
+            var url = "";
+            switch (response.status) {
+              case 200:
+                message = "글이 성공적으로 작성되었습니다";
+                url = "/board";
+                break;
+
+              case 401:
+                message = "글 작성에 실패하였습니다";
+                url = location.href;
+                break;
+
+              case 403:
+                message = "로그인을 먼저 해주세요";
+                url = "/login";
+                break;
+
+              case 500:
+                message = "서버 내부 에러가 발생하였습니다";
+                url = location.href;
+                break;
+
+              default:
+                message = "클라이언트 오류가 발생하였습니다";
+                url = location.href;
+                break;
+            }
+            alert(message);
+            location.href = url;
+          })
+          .catch((err) => {
+            document.write(`에러 메세지\n ${err}`);
+          });
+      };
+    </script>
     {% include url_for('static', filename='footer.html') %}
     <!-- [E]basic-N4 -->
     <script src="{{ url_for('static', filename='js/setting.js') }}"></script>

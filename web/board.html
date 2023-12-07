@@ -103,13 +103,13 @@
           </div>
           <div class="button-container">
             <div class="button-area">
-              <button class="btn btn-dark article-btn">
-                <a
-                  href="{{'/upload' if current_user.is_authenticated else '/login'}}"
-                  style="color: white"
-                  >글 작성하기</a
-                >
-              </button>
+              <a
+                href="{{'/upload' if current_user.is_authenticated else '/login'}}"
+                style="color: white"
+                ><button class="btn btn-dark article-btn">
+                  글 작성하기
+                </button></a
+              >
             </div>
           </div>
         </div>
