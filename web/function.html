@@ -86,7 +86,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.library_list.length > 0) {
-                            var html_message = '<div class="gpt-message"> 지금 필요하신 라이브러리는 ';
+                            var html_message = '<div class="gpt-message"> 개발하실 때 도움이 될 수 있는 라이브러린는 ';
 
                             for (var i = 0; i < data.library_list.length; i++) {
                                 if (i > 0) {
