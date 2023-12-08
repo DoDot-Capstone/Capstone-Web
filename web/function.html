@@ -131,7 +131,7 @@
                     var html_message = '<div class="gpt-message">' +
                         '<h2>' + library + ' 관련 정보 결과 : [</h2>';
                     for (var i = 0; i < data.result.length; i++) {
-                        html_message += '<a href="https://mvnrepository.com' + data.result[i][1] + '" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<strong>' + data.result[i][0] + '</strong> - <small>' + data.result[i][1].replace('', '/artifact/') +'</small></a><br>';
+                        html_message += '<a href="https://mvnrepository.com' + data.result[i][1] + '" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<strong>' + data.result[i][0] + '</strong> - <small>' + data.result[i][1].replace('/artifact/', '') +'</small></a><br>';
                     }
                     html_message += '<h2>]</h2></div>';
                     outputElement.innerHTML += html_message;
