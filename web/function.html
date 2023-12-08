@@ -88,10 +88,10 @@
                         var html_message = '<div class="gpt-message"> 지금 필요하신 라이브러리는 ';
 
                         for (var i = 0; i < data.library_list.length; i++) {
-                            html_message += '<a href="#" onClick="searchLibrary(\'' + data.library_list[i] + '\')"><strong>' + data.library_list[i] + '</strong></a>';
                             if (i > 0) {
                                 html_message += ', ';
                             }
+                            html_message += '<a href="#" onClick="searchLibrary(\'' + data.library_list[i] + '\')"><strong>' + data.library_list[i] + '</strong></a>';
                         }
                         html_message += '인거 같습니다!<br>라이브러리와 관련된 정보를 확인하려면 라이브러리 이름을 클릭하세요.</div>'
 
