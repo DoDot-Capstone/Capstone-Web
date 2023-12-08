@@ -34,11 +34,13 @@ body {
     margin-right: 10px;
     background-color: #FFFFFF;
     font-size: 20px;
+    border-radius: 5px;
 }
 
 button {
     padding: 8px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .user-message {
@@ -46,6 +48,7 @@ button {
     padding: 15px;
     margin-bottom: 20px;
     font-size: 20px;
+    border-radius: 5px;
 }
 
 .gpt-message {
@@ -53,6 +56,7 @@ button {
     padding: 15px;
     margin-bottom: 20px;
     font-size: 20px;
+    border-radius: 5px;
 }
 .th-layout-main {
     background-color: #151515;

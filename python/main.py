@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db.models.article import Article
 from user.register import get_register
+from gpt.chatgpt import getGptReply
+from python.gpt.search import getSearchReply
 from user.login_auth import login_get_info
 from flask_login import LoginManager, logout_user, current_user
 from flask_login.mixins import AnonymousUserMixin
@@ -16,6 +18,7 @@ login_manager = LoginManager()
 app = Flask(__name__, template_folder='../web', static_folder='../web/static')
 login_manager.init_app(app)
 app.secret_key = 'super_secret_key'
+
 @app.route("/")
 def home():
     return render_template("initial.html")
@@ -60,6 +63,13 @@ def function():
     else:
         # 사용자가 인증되지 않았다면 로그인 페이지로 리다이렉트합니다.
         return redirect(url_for('login'))
+
+@app.route("/function", methods=['POST', 'GET'])
+def do_gpt():
+    return getGptReply()
+@app.route("/search", methods=['POST', 'GET'])
+def search():
+    return getSearchReply()
 
 @app.route("/upload")
 def upload():

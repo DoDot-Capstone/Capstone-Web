@@ -138,8 +138,9 @@ class Article:
             cursor.execute(f"""
                 INSERT INTO posts(title, content, user_id) VALUES ('{title}', '{content}', {user_id});
             """)
-            results = cursor.fetchall()
-            return 200 if len(results) == 0 else 401
+            # results = cursor.fetchall()
+            # return 200 if len(results) == 0 else 401
+            return 200
 
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")

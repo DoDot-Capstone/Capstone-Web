@@ -22,12 +22,11 @@
                     <div id="chat-container">
                         <div id="chat-output"></div>
                         <div id="user-input">
-                            <input type="text" id="input-message" placeholder="메시지를 입력하세요...">
+                            <input class="" type="text" id="input-message" placeholder="메시지를 입력하세요...">
 
                             <button onclick="sendMessage()">전송</button>
                         </div>
                     </div>
-                    <script src="{{ url_for('static', filename='js/function.js') }}"></script>
                 </div>
         <!-- [E]basic-N6 -->
             </div>
@@ -37,6 +36,116 @@
     <!-- [S]basic-N4 -->
     {% include url_for('static', filename='footer.html') %}
     <!-- [E]basic-N4 -->
+    <script>
+        var loading = false;
+
+        // 입력 요소에 이벤트 리스너 추가
+        var inputElement = document.getElementById('input-message');
+        inputElement.addEventListener('keydown', function(event) {
+                // 눌린 키가 Enter인지 확인 (keyCode 13)
+                if (event.keyCode === 13) {
+                // Enter 키가 눌렸을 때 sendMessage 함수 호출
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            if (loading) {
+                alert("답변을 가져오고 있습니다..!")
+                return;
+            }
+
+            loading = true;
+
+            // ID를 통해 입력 요소 가져오기
+            var inputElement = document.getElementById('input-message');
+            // 입력 값의 앞뒤 공백을 제거한 값을 가져오기
+            var message = inputElement.value.trim();
+
+            if (message !== '') {
+                // ID를 통해 채팅 출력 요소 가져오기
+                var outputElement = document.getElementById('chat-output');
+
+                // 사용자의 입력 메시지를 채팅에 표시
+                outputElement.innerHTML += '<div class="user-message">' + message + '</div>';
+
+                // 채팅 출력을 가장 아래로 스크롤하여 최신 메시지를 표시
+                outputElement.scrollTop = outputElement.scrollHeight;
+
+                // 메시지를 보낸 후 입력창 초기화
+                inputElement.value = '';
+
+                // 서버로 데이터를 전송하는 fetch
+                fetch("{{ url_for('function') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({user_message: message})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        var html_message = '<div class="gpt-message"> 지금 필요하신 라이브러리는 ';
+
+                        for (var i = 0; i < data.library_list.length; i++) {
+                            html_message += '<a href="#" onClick="searchLibrary(\'' + data.library_list[i] + '\')"><strong>' + data.library_list[i] + '</strong></a>';
+                            if (i > 0) {
+                                html_message += ', ';
+                            }
+                        }
+                        html_message += '인거 같습니다!<br>라이브러리와 관련된 정보를 확인하려면 라이브러리 이름을 클릭하세요.</div>'
+
+                        outputElement.innerHTML += html_message;
+
+                        // 채팅 출력을 가장 아래로 스크롤하여 최신 메시지를 표시
+                        outputElement.scrollTop = outputElement.scrollHeight;
+                        loading = false;
+                    }).catch(error => {
+                        outputElement.innerHTML += '<div class="gpt-message">오류가 발생하여 답변을 받지 못했습니다.</div>';
+                        loading = false;
+                    }
+                );
+            }
+        }
+        function searchLibrary(library) {
+            if (loading) {
+                alert("답변을 가져오고 있습니다..!")
+                return;
+            }
+
+            loading = true;
+
+            // ID를 통해 채팅 출력 요소 가져오기
+            var outputElement = document.getElementById('chat-output');
+
+            // 서버로 데이터를 전송하는 fetch
+            fetch("{{ url_for('search') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({lib: library})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var html_message = '<div class="gpt-message">' +
+                        '<h2>' + library + ' 관련 정보 결과 : [</h2>';
+                    for (var i = 0; i < data.result.length; i++) {
+                        html_message += '<a href="https://mvnrepository.com' + data.result[i][1] + '" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<strong>' + data.result[i][0] + '</strong> - <small>' + data.result[i][1].replace('', '/artifact/') +'</small></a><br>';
+                    }
+                    html_message += '<h2>]</h2></div>';
+                    outputElement.innerHTML += html_message;
+
+                    // 채팅 출력을 가장 아래로 스크롤하여 최신 메시지를 표시
+                    outputElement.scrollTop = outputElement.scrollHeight;
+                    loading = false;
+                }).catch(error => {
+                    outputElement.innerHTML += '<div class="gpt-message">오류가 발생하여 답변을 받지 못했습니다.</div>';
+                    loading = false;
+                }
+            );
+        }
+    </script>
     <script src="{{ url_for('static', filename='js/setting.js') }}"></script>
     <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/template.js') }}"></script>
