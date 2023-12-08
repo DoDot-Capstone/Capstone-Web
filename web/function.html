@@ -85,20 +85,24 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        var html_message = '<div class="gpt-message"> 지금 필요하신 라이브러리는 ';
+                        if (data.library_list.length > 0) {
+                            var html_message = '<div class="gpt-message"> 지금 필요하신 라이브러리는 ';
 
-                        for (var i = 0; i < data.library_list.length; i++) {
-                            if (i > 0) {
-                                html_message += ', ';
+                            for (var i = 0; i < data.library_list.length; i++) {
+                                if (i > 0) {
+                                    html_message += ', ';
+                                }
+                                html_message += '<a href="#" onClick="searchLibrary(\'' + data.library_list[i] + '\')"><strong>' + data.library_list[i] + '</strong></a>';
                             }
-                            html_message += '<a href="#" onClick="searchLibrary(\'' + data.library_list[i] + '\')"><strong>' + data.library_list[i] + '</strong></a>';
+                            html_message += '인거 같습니다!<br>라이브러리와 관련된 정보를 확인하려면 라이브러리 이름을 클릭하세요.</div>'
+
+                            outputElement.innerHTML += html_message;
+
+                            // 채팅 출력을 가장 아래로 스크롤하여 최신 메시지를 표시
+                           outputElement.scrollTop = outputElement.scrollHeight;
+                        } else {
+                            outputElement.innerHTML += '<div class="gpt-message">오류가 발생하여 답변을 받지 못했습니다.</div>';
                         }
-                        html_message += '인거 같습니다!<br>라이브러리와 관련된 정보를 확인하려면 라이브러리 이름을 클릭하세요.</div>'
-
-                        outputElement.innerHTML += html_message;
-
-                        // 채팅 출력을 가장 아래로 스크롤하여 최신 메시지를 표시
-                        outputElement.scrollTop = outputElement.scrollHeight;
                         loading = false;
                     }).catch(error => {
                         outputElement.innerHTML += '<div class="gpt-message">오류가 발생하여 답변을 받지 못했습니다.</div>';
