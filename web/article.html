@@ -47,11 +47,61 @@
           <div class="article-footer">
             <div>작성자 {{article["username"]}}</div>
             <div>작성 시간 {{article["created_at"]}}</div>
-            <div>마지막 수정 {{article["updated_at"]}}</div>
+            <div class="button-area">
+              <button
+                type="button"
+                class="btn delete-btn"
+                onClick="deleteRequest(event)"
+              >
+                글 삭제하기
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </main>
+    <script>
+      const deleteRequest = (event) => {
+        fetch("http://localhost:8080/delete/{{article['post_id']}}", {
+          method: "POST",
+        })
+          .then((response) => {
+            var message = "";
+            var url = "";
+            switch (response.status) {
+              case 200:
+                message = "글을 성공적으로 제거하였습니다";
+                url = "/board";
+                break;
+
+              case 401:
+                message = "사용자 정보와 일치하지 않습니다";
+                url = location.href;
+                break;
+
+              case 403:
+                message = "로그인을 먼저 해주세요";
+                url = "/login";
+                break;
+
+              case 500:
+                message = "서버 내부 에러가 발생하였습니다";
+                url = location.href;
+                break;
+
+              default:
+                message = "클라이언트 오류가 발생하였습니다";
+                url = location.href;
+                break;
+            }
+            alert(message);
+            location.href = url;
+          })
+          .catch((err) => {
+            document.write(`에러 메세지 ${err}`);
+          });
+      };
+    </script>
     {% include url_for('static', filename='footer.html') %}
     <!-- [E]basic-N4 -->
     <script src="{{ url_for('static', filename='js/setting.js') }}"></script>

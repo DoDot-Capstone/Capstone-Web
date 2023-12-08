@@ -117,7 +117,10 @@ class Article:
             """)
 
             results = cursor.fetchall()
-            return Article(*results[0]).convert_json
+            if len(results) == 0:
+                return None
+            else:
+                return Article(*results[0]).convert_json
         
         except Exception as e:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
@@ -142,6 +145,43 @@ class Article:
             logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
             return 500
         
+        finally:
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+    @staticmethod
+    def delete_article(post_id: int, user_id: int):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute(f"""
+            SELECT * FROM posts WHERE post_id = {post_id};
+            """)
+            results = cursor.fetchone()
+            if len(results) == 0:
+                status = 401
+
+            elif results[3] != int(user_id):
+                status = 401
+
+            else:
+                cursor.execute(f"""
+                    DELETE FROM posts WHERE post_id = {post_id};
+                """)
+                results = cursor.fetchone()
+                if results is None:
+                    status = 200
+                else:
+                    status = 401
+
+            return status
+
+        except Exception as e:
+            logging.error(f"{e}: {''.join(traceback.format_exception(None, e, e.__traceback__))}")
+            return 500
+
         finally:
             conn.commit()
             cursor.close()
