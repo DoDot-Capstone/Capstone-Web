@@ -4,7 +4,7 @@ body {
     padding: 0;
 }
 #chat-container {
-    width: 1000px;
+    width: 800px;
     margin: 1px auto;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -13,9 +13,10 @@ body {
 }
 
 #chat-output {
-    height:900px;
+    height:730px;
     overflow-y: scroll;
     padding: 10px;
+    overflow-x: hidden;
 }
 /*사용자 입력창*/
 #user-input {
