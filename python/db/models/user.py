@@ -33,6 +33,7 @@ class User:
                 SELECT * FROM users;
             """)
 
+
             results = cursor.fetchall()
             return list(map(lambda x: User(*x).convert_json, results))
         

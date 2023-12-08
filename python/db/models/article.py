@@ -166,6 +166,7 @@ class Article:
             elif results[3] != int(user_id):
                 status = 401
 
+
             else:
                 cursor.execute(f"""
                     DELETE FROM posts WHERE post_id = {post_id};

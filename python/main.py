@@ -79,6 +79,17 @@ def upload_request():
         
     return app.response_class(response={}, status = status)
 
+@app.route("/delete/<articleNo>", methods = ["POST"])
+def delete_article(articleNo):
+    if (isinstance(current_user, AnonymousUserMixin)):
+        status = 403
+
+    else:
+        user_id = current_user.user_id
+        status = Article.delete_article(articleNo, user_id)
+
+    return app.response_class(response={}, status = status)
+
 @app.route("/board")
 def board():
     parameter_dict = request.args.to_dict()
